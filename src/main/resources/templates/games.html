@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Results</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container mt-5">
+    <a th:href="@{/login}" class="btn btn-success mb-3">Login</a>
+    <h1 class="mb-4">Game Results</h1>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Home Team</th>
+            <th>Home Team Goals</th>
+            <th>Away Team Goals</th>
+            <th>Away Team</th>
+            <th>Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="game : ${games}">
+            <td th:text="${game.homeTeam.name}"></td>
+            <td th:text="${game.homeScore}"></td>
+            <td th:text="${game.awayScore}"></td>
+            <td th:text="${game.awayTeam.name}"></td>
+            <td th:text="${game.date}"></td>
+            <td>
+                <div th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
+                <form th:action="@{/games/delete}" method="post">
+                    <input type="hidden" th:value="${game.id}" name="gameId"/>
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+                <form th:action="@{/editgame/{id}(id=${game.id})}" method="get">
+                    <button type="submit" class="btn btn-warning">Edit</button>
+                </form>
+            </div>
+            </td>
+        </tr>
+    </tbody>
+    </table>
+    <div th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
+    <a th:href="@{/addgame}" class="btn btn-success mb-3">Add Game</a>
+</div>
+    <a href="/league">View League Table</a>
+</body>
+</html>

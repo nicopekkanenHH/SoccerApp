@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>League Table</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container mt-5">
+    <h1 class="mb-4">League Table</h1>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Team</th>
+            <th>Points</th>
+            <th>Played Games</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="team : ${teams}">
+            <td th:text="${team.name}"></td>
+            <td th:text="${team.points}"></td>
+            <td th:text="${team.playedGames}"></td>
+        </tr>
+    </tbody>
+    </table>
+    <a href="/games">Back to Games</a>
+</div>
+</body>
+</html>
