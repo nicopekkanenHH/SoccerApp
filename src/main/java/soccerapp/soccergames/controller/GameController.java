@@ -46,7 +46,7 @@ public class GameController {
 public String showAddGameForm(Model model) {
     model.addAttribute("game", new Game());
     model.addAttribute("teams", teamRepository.findAll());  
-    return "addGame";
+    return "addgame";
 }
 
     @PostMapping("/addgame")
